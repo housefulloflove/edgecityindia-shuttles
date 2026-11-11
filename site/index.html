@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge City India Shuttles</title>
+<meta name="description" content="Open-source live shuttle tracker built for Edge City India 2026 (Mandrem, Goa): web app, worker, Telegram bot and driver phones.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf7f0;--surface:#fff;--ink:#1d1b18;--muted:#5f5a52;--line:#e4dccd;
+  --accent:#c2410c;--accent-soft:#fde7d6;--teal:#0f766e;--teal-soft:#d5f0ec;--code:#f3ede2;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#16140f;--surface:#211e18;--ink:#f1ebe0;--muted:#aaa196;--line:#3a352c;
+    --accent:#fb923c;--accent-soft:#3b2414;--teal:#5eead4;--teal-soft:#123632;--code:#2a261f;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:0 16px 64px}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15}
+h1{font-size:clamp(2rem,7vw,3.2rem);margin:.2em 0 .3em}
+h2{font-size:1.6rem;margin:2.4em 0 .6em}
+a{color:var(--accent)}
+p,li{max-width:68ch}
+.hero{padding:56px 0 8px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
+.lede{font-size:1.15rem;color:var(--muted)}
+.badge{display:inline-block;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 28px}
+.links a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600}
+.links a.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card h3{margin:0 0 4px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.card code{font-size:.85em}
+code{font-family:"JetBrains Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:5px;font-size:.9em}
+pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow-x:auto;font:14px/1.55 "JetBrains Mono",ui-monospace,monospace}
+pre code{background:none;padding:0}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+figure svg{display:block;width:100%;height:auto}
+figcaption{color:var(--muted);font-size:.9rem;padding:8px 6px 2px}
+svg .box{fill:var(--surface);stroke:var(--line);stroke-width:2}
+svg .box.hl{fill:var(--accent-soft);stroke:var(--accent)}
+svg .box.db{fill:var(--teal-soft);stroke:var(--teal)}
+svg .t{fill:var(--ink);font:600 15px Inter,system-ui,sans-serif}
+svg .s{fill:var(--muted);font:12px Inter,system-ui,sans-serif}
+svg .edge{stroke:var(--muted);stroke-width:1.6;fill:none;marker-end:url(#arrow)}
+svg .lbl{fill:var(--muted);font:11px Inter,system-ui,sans-serif}
+svg #arrow path{fill:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;white-space:nowrap}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <p class="eyebrow">Open source &middot; MIT</p>
+  <h1>Edge City India Shuttles</h1>
+  <p class="lede">A live shuttle tracker for the Riva &harr; Circle shuttles at <strong>Edge City India 2026</strong> in Mandrem, Goa (11 Oct &ndash; 1 Nov 2026). Attendees picked their stop and saw where the shuttle was and when it would reach them.</p>
+  <p><span class="badge">The event has ended</span> The code stays here for anyone running shuttles at their own event.</p>
+  <nav class="links">
+    <a class="primary" href="https://github.com/housefulloflove/edgecityindia-shuttles">View on GitHub</a>
+    <a href="https://github.com/housefulloflove/edgecityindia-shuttles/blob/main/CONTRIBUTING.md">Contributing</a>
+    <a href="https://github.com/housefulloflove/edgecityindia-shuttles/blob/main/SECURITY.md">Security</a>
+  </nav>
+</header>
+
+<h2>How it was used</h2>
+<div class="cards">
+  <div class="card"><h3>Attendees</h3><p>A public page asks &ldquo;Where are you?&rdquo; and answers &ldquo;Here in N min&rdquo; or &ldquo;here now&rdquo;, with the day&rsquo;s schedule. A Telegram bot sends arrival alerts and notices for your stop. The public side never shows lateness: it says where the shuttle is, calmly.</p></div>
+  <div class="card"><h3>Drivers</h3><p>One phone per vehicle shares its location. Android phones ran the driver app, paired by QR or 6-digit code. iPhones shared Telegram live location with the bot after <code>/pair</code>, with the Traccar Client app as a backup.</p></div>
+  <div class="card"><h3>Ops team</h3><p>A phone-first admin site (live board with map, phones, vehicles, schedule, notices, insights, activity), Telegram alerts with action buttons, and an MCP server so an AI agent could read state and propose changes for a person to confirm.</p></div>
+</div>
+
+<h2>Architecture</h2>
+<p>A pnpm monorepo. One Docker image runs twice: as the <strong>web</strong> app and, with <code>ROLE=worker</code>, as the <strong>worker</strong>. Postgres holds everything. The server decides when phones track: each phone syncs, gets its desired mode back (active, idle, killed, revoked) and reconciles.</p>
+<figure>
+<svg viewBox="0 0 760 430" role="img" aria-labelledby="dtitle ddesc">
+  <title id="dtitle">Architecture diagram</title>
+  <desc id="ddesc">Driver phones send GPS to the web app through the device API, Telegram live location or the Traccar endpoint. The web app serves attendees and ops, the Telegram webhook and the MCP server, and reads and writes Postgres. The worker runs scheduled jobs against Postgres and sends Telegram messages and push notifications.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker>
+  </defs>
+
+  <!-- left column: sources -->
+  <rect class="box" x="10" y="20" width="190" height="62" rx="12"/>
+  <text class="t" x="24" y="46">Android driver app</text>
+  <text class="s" x="24" y="66">Expo &middot; GPS, modes, OTA</text>
+
+  <rect class="box" x="10" y="100" width="190" height="62" rx="12"/>
+  <text class="t" x="24" y="126">iPhone drivers</text>
+  <text class="s" x="24" y="146">Telegram live location / Traccar</text>
+
+  <rect class="box" x="10" y="200" width="190" height="62" rx="12"/>
+  <text class="t" x="24" y="226">Attendees</text>
+  <text class="s" x="24" y="246">public page &middot; bot</text>
+
+  <rect class="box" x="10" y="280" width="190" height="62" rx="12"/>
+  <text class="t" x="24" y="306">Ops</text>
+  <text class="s" x="24" y="326">admin &middot; bot &middot; AI agent (MCP)</text>
+
+  <!-- centre: web -->
+  <rect class="box hl" x="280" y="20" width="220" height="322" rx="14"/>
+  <text class="t" x="298" y="50">Web (Next.js)</text>
+  <text class="s" x="298" y="80">/api/device &nbsp;pair &middot; sync</text>
+  <text class="s" x="298" y="102">/api/device/traccar</text>
+  <text class="s" x="298" y="124">/api/telegram &nbsp;bot webhook</text>
+  <text class="s" x="298" y="146">/api/mcp &nbsp;OAuth</text>
+  <text class="s" x="298" y="168">public page &middot; /admin</text>
+  <text class="s" x="298" y="190">/api/health</text>
+  <line x1="298" y1="212" x2="482" y2="212" stroke="var(--line)" stroke-width="1.5"/>
+  <text class="t" x="298" y="240">Service layer</text>
+  <text class="s" x="298" y="262">roles &amp; workspace scope</text>
+  <text class="s" x="298" y="282">one audit row per change</text>
+  <text class="s" x="298" y="302">side effects &rarr; outbox</text>
+
+  <!-- right: db, worker, telegram -->
+  <rect class="box db" x="570" y="150" width="140" height="70" rx="14"/>
+  <text class="t" x="588" y="180">Postgres</text>
+  <text class="s" x="588" y="200">Drizzle ORM</text>
+
+  <rect class="box hl" x="570" y="290" width="180" height="96" rx="14"/>
+  <text class="t" x="588" y="318">Worker</text>
+  <text class="s" x="588" y="340">watchdog &middot; service windows</text>
+  <text class="s" x="588" y="358">arrival alerts &middot; notices</text>
+  <text class="s" x="588" y="376">queue &middot; nightly learning</text>
+
+  <rect class="box" x="570" y="20" width="180" height="70" rx="14"/>
+  <text class="t" x="588" y="50">Telegram &amp; push</text>
+  <text class="s" x="588" y="70">Bot API &middot; Expo push</text>
+
+  <!-- edges -->
+  <path class="edge" d="M200 51H276"/>
+  <text class="lbl" x="214" y="44">GPS</text>
+  <path class="edge" d="M200 131H276"/>
+  <path class="edge" d="M200 231H276"/>
+  <path class="edge" d="M200 311H276"/>
+  <path class="edge" d="M500 185H566"/>
+  <text class="lbl" x="508" y="178">read/write</text>
+  <path class="edge" d="M640 286V224"/>
+  <text class="lbl" x="648" y="260">jobs</text>
+  <path class="edge" d="M735 286V94"/>
+  <path class="edge" d="M570 55H504"/>
+  <text class="lbl" x="512" y="48">webhook</text>
+  <text class="lbl" x="290" y="410">Web and worker: same Dockerfile, picked by ROLE.</text>
+</svg>
+<figcaption>Phones and people talk to the web app; the worker runs scheduled jobs and sends Telegram messages and pushes from a queue.</figcaption>
+</figure>
+
+<h2>What&rsquo;s in the repo</h2>
+<table>
+  <tr><th><code>apps/web</code></th><td>Next.js site: public page with map, phone-first admin, Telegram bot webhook, device endpoints, and the MCP server (<code>/api/mcp</code>, OAuth). Holds the single service layer and the database schema.</td></tr>
+  <tr><th><code>apps/worker</code></th><td>Scheduled jobs (croner): watchdog for silent or off-route phones, service windows, arrival alerts, notices, a Telegram and push queue, nightly learning of leg and dwell times, cleanup. Postgres locks prevent double sends.</td></tr>
+  <tr><th><code>apps/driver</code></th><td>Expo (Android) app: pairing by QR or code, permission checklist, GPS while active (about every 10 s), check-ins while idle, offline queue, server-controlled over-the-air updates.</td></tr>
+  <tr><th><code>packages/shared</code></th><td>Contracts, schedule maths and IST time helpers, shared by all three apps.</td></tr>
+</table>
+<p>Every write goes through one service layer: one transaction and one audit-log row per change. Admin pages, API routes, the bot webhook, MCP tools and worker jobs are thin adapters around it. Over MCP, changes are proposed first and applied only after a person confirms.</p>
+
+<h2>Stack</h2>
+<div class="cards">
+  <div class="card"><h3>Web</h3><p>Next.js, React, Tailwind with shadcn/ui, MapLibre and three.js, zod</p></div>
+  <div class="card"><h3>Data</h3><p>Postgres with Drizzle ORM</p></div>
+  <div class="card"><h3>Driver</h3><p>Expo / React Native (Android), Expo push and updates</p></div>
+  <div class="card"><h3>Integrations</h3><p>Telegram Bot API, Model Context Protocol, Traccar Client protocol, OSRM road paths</p></div>
+  <div class="card"><h3>Tooling</h3><p>TypeScript, pnpm workspaces, Vitest, Biome, Playwright, Docker (Node 22)</p></div>
+</div>
+
+<h2>Run it locally</h2>
+<p>You need Node 22+, pnpm and Docker (for Postgres).</p>
+<pre><code>pnpm install
+docker compose -f docker-compose.dev.yml up -d     # Postgres on 127.0.0.1:5548
+cp apps/web/.env.example apps/web/.env.local       # fill in SESSION_SECRET and TOKEN_SECRETS (random strings)
+pnpm dev                                           # web + worker</code></pre>
+<p>Telegram is optional: leave <code>TELEGRAM_BOT_TOKEN</code> empty and the bot stays off. To watch fake shuttles drive the route, try <code>pnpm sim</code>. Tests:</p>
+<pre><code>pnpm test-db        # throwaway Postgres for tests (port 5547)
+pnpm test           # unit + database tests
+pnpm typecheck &amp;&amp; pnpm lint</code></pre>
+
+<h2>Self-host it for your event</h2>
+<p>Stops, routes, services, vehicles and staffing are data, not code: set them up in the admin site (or over MCP), then pair a phone per vehicle. For production, build the root <code>Dockerfile</code> and run it twice, once as web (default) and once with <code>ROLE=worker</code>, against your own Postgres. Web applies database migrations on start. <code>apps/web/.env.example</code> lists every variable.</p>
+<p>You&rsquo;ll also need your own Telegram bot (via @BotFather) and, for the Android driver app, your own Expo and Firebase projects (replace <code>apps/driver/google-services.json</code>, <code>eas.json</code> and the package id in <code>app.config.ts</code>). Stop names, copy and art are Edge City India&rsquo;s; swap them freely.</p>
+
+<h2>License</h2>
+<p>MIT. See <a href="https://github.com/housefulloflove/edgecityindia-shuttles/blob/main/LICENSE">LICENSE</a>. Ideas and bugs are welcome as <a href="https://github.com/housefulloflove/edgecityindia-shuttles/issues">issues</a>; read <a href="https://github.com/housefulloflove/edgecityindia-shuttles/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> first, and report security issues as described in <a href="https://github.com/housefulloflove/edgecityindia-shuttles/blob/main/SECURITY.md">SECURITY.md</a>.</p>
+
+<footer>Built for Edge City India 2026, Mandrem, Goa. Source: <a href="https://github.com/housefulloflove/edgecityindia-shuttles">housefulloflove/edgecityindia-shuttles</a>.</footer>
+</main>
+</body>
+</html>
